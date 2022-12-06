@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+    RewriteCond %{SCRIPT_FILENAME} !-f
+    RewriteCond %{SCRIPT_FILENAME} !-d
+
+</IfModule>
+
+<Files *.tpl>
+    Order deny,allow
+    Deny from all
+</Files>

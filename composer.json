@@ -1,0 +1,22 @@
+{
+    "vendor-name" : "E-Commerce",
+    "require":{
+        "php":">=8.0",
+        "pagseguro/pagseguro-php-sdk": "^4.2",
+        "piggly/php-pix": "^2.0",
+        "smarty/smarty": "^4.3",
+        "phpmailer/phpmailer": "^6.5"
+    },
+    "author":[
+        {
+            "name":"Lurique",
+            "email":"Luiz.prog.henri@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-4":{
+            "App\\":"./app/",
+            "MF\\":"./vendor/MF/"
+        }
+    }
+}

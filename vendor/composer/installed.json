@@ -1,0 +1,415 @@
+{
+    "packages": [
+        {
+            "name": "chillerlan/php-qrcode",
+            "version": "3.4.1",
+            "version_normalized": "3.4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chillerlan/php-qrcode.git",
+                "reference": "468603b687a5fe75c1ff33857a45f1726c7b95a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/468603b687a5fe75c1ff33857a45f1726c7b95a9",
+                "reference": "468603b687a5fe75c1ff33857a45f1726c7b95a9",
+                "shasum": ""
+            },
+            "require": {
+                "chillerlan/php-settings-container": "^1.2.2",
+                "ext-mbstring": "*",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "phan/phan": "^3.2.2",
+                "phpunit/phpunit": "^8.5",
+                "setasign/fpdf": "^1.8.2"
+            },
+            "suggest": {
+                "chillerlan/php-authenticator": "Yet another Google authenticator! Also creates URIs for mobile apps.",
+                "setasign/fpdf": "Required to use the QR FPDF output."
+            },
+            "time": "2021-09-03T17:54:45+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "chillerlan\\QRCode\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kazuhiko Arase",
+                    "homepage": "https://github.com/kazuhikoarase"
+                },
+                {
+                    "name": "Smiley",
+                    "email": "smiley@chillerlan.net",
+                    "homepage": "https://github.com/codemasher"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/chillerlan/php-qrcode/graphs/contributors"
+                }
+            ],
+            "description": "A QR code generator. PHP 7.2+",
+            "homepage": "https://github.com/chillerlan/php-qrcode",
+            "keywords": [
+                "phpqrcode",
+                "qr",
+                "qr code",
+                "qrcode",
+                "qrcode-generator"
+            ],
+            "support": {
+                "issues": "https://github.com/chillerlan/php-qrcode/issues",
+                "source": "https://github.com/chillerlan/php-qrcode/tree/3.4.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/donate?hosted_button_id=WLYUNAT9ZTJZ4",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://ko-fi.com/codemasher",
+                    "type": "ko_fi"
+                }
+            ],
+            "install-path": "../chillerlan/php-qrcode"
+        },
+        {
+            "name": "chillerlan/php-settings-container",
+            "version": "1.2.2",
+            "version_normalized": "1.2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chillerlan/php-settings-container.git",
+                "reference": "d1b5284d6eb3a767459738bb0b20073f0cb3eeaf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chillerlan/php-settings-container/zipball/d1b5284d6eb3a767459738bb0b20073f0cb3eeaf",
+                "reference": "d1b5284d6eb3a767459738bb0b20073f0cb3eeaf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.4"
+            },
+            "time": "2021-09-03T17:33:25+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "chillerlan\\Settings\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Smiley",
+                    "email": "smiley@chillerlan.net",
+                    "homepage": "https://github.com/codemasher"
+                }
+            ],
+            "description": "A container class for immutable settings objects. Not a DI container. PHP 7.2+",
+            "homepage": "https://github.com/chillerlan/php-settings-container",
+            "keywords": [
+                "PHP7",
+                "Settings",
+                "container",
+                "helper"
+            ],
+            "support": {
+                "issues": "https://github.com/chillerlan/php-settings-container/issues",
+                "source": "https://github.com/chillerlan/php-settings-container"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/donate?hosted_button_id=WLYUNAT9ZTJZ4",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://ko-fi.com/codemasher",
+                    "type": "ko_fi"
+                }
+            ],
+            "install-path": "../chillerlan/php-settings-container"
+        },
+        {
+            "name": "pagseguro/pagseguro-php-sdk",
+            "version": "4.2.1",
+            "version_normalized": "4.2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pagseguro/pagseguro-php-sdk.git",
+                "reference": "3e164aff66fa089eb79a80ce6b7413fe36aa9b95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pagseguro/pagseguro-php-sdk/zipball/3e164aff66fa089eb79a80ce6b7413fe36aa9b95",
+                "reference": "3e164aff66fa089eb79a80ce6b7413fe36aa9b95",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "lib-curl": "*",
+                "lib-openssl": "*",
+                "php": ">=5.4.27"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "time": "2018-08-17T12:30:18+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "PagSeguro\\": "source/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "PagSeguro"
+                }
+            ],
+            "description": "Biblioteca de integração com o PagSeguro",
+            "support": {
+                "issues": "https://github.com/pagseguro/pagseguro-php-sdk/issues",
+                "source": "https://github.com/pagseguro/pagseguro-php-sdk/tree/4.2.1"
+            },
+            "install-path": "../pagseguro/pagseguro-php-sdk"
+        },
+        {
+            "name": "phpmailer/phpmailer",
+            "version": "v6.7",
+            "version_normalized": "6.7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPMailer/PHPMailer.git",
+                "reference": "80fc8686fcd070267b98dae0ec228d5d67d94310"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/80fc8686fcd070267b98dae0ec228d5d67d94310",
+                "reference": "80fc8686fcd070267b98dae0ec228d5d67d94310",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-filter": "*",
+                "ext-hash": "*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "doctrine/annotations": "^1.2",
+                "php-parallel-lint/php-console-highlighter": "^1.0.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3.2",
+                "phpcompatibility/php-compatibility": "^9.3.5",
+                "roave/security-advisories": "dev-latest",
+                "squizlabs/php_codesniffer": "^3.7.1",
+                "yoast/phpunit-polyfills": "^1.0.0"
+            },
+            "suggest": {
+                "ext-mbstring": "Needed to send email in multibyte encoding charset or decode encoded addresses",
+                "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
+                "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
+                "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
+                "psr/log": "For optional PSR-3 debug logging",
+                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
+                "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
+            },
+            "time": "2022-12-05T10:56:35+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "PHPMailer\\PHPMailer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-only"
+            ],
+            "authors": [
+                {
+                    "name": "Marcus Bointon",
+                    "email": "phpmailer@synchromedia.co.uk"
+                },
+                {
+                    "name": "Jim Jagielski",
+                    "email": "jimjag@gmail.com"
+                },
+                {
+                    "name": "Andy Prevost",
+                    "email": "codeworxtech@users.sourceforge.net"
+                },
+                {
+                    "name": "Brent R. Matzelle"
+                }
+            ],
+            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
+            "support": {
+                "issues": "https://github.com/PHPMailer/PHPMailer/issues",
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.7"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Synchro",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../phpmailer/phpmailer"
+        },
+        {
+            "name": "piggly/php-pix",
+            "version": "2.0.2",
+            "version_normalized": "2.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/piggly-dev/php-pix.git",
+                "reference": "72567d091f660324bdc562420cc02340fb1c70d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/piggly-dev/php-pix/zipball/72567d091f660324bdc562420cc02340fb1c70d4",
+                "reference": "72567d091f660324bdc562420cc02340fb1c70d4",
+                "shasum": ""
+            },
+            "require": {
+                "chillerlan/php-qrcode": "^3.3",
+                "ext-gd": "*",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.14",
+                "php": "^7.3 || ^8.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "piggly/php-api-client": "Recomentado para criar requisições HTTP seguras e dinâmicas para as API Pix junto com os Payloads padrões."
+            },
+            "time": "2022-06-21T13:57:30+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Piggly\\Pix\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caique Araujo",
+                    "email": "caique@studiopiggly.com.br",
+                    "homepage": "https://github.com/caiquearaujo",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Uma biblioteca para preparar e gerar o código Pix do Banco Central do Brasil.",
+            "homepage": "https://github.com/piggly-dev/php-pix",
+            "keywords": [
+                "bcb",
+                "emv",
+                "payment",
+                "piggly",
+                "pix",
+                "qrcode"
+            ],
+            "support": {
+                "issues": "https://github.com/piggly-dev/php-pix/issues",
+                "source": "https://github.com/piggly-dev/php-pix/tree/2.0.2"
+            },
+            "install-path": "../piggly/php-pix"
+        },
+        {
+            "name": "smarty/smarty",
+            "version": "v4.3.0",
+            "version_normalized": "4.3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smarty-php/smarty.git",
+                "reference": "c02e9e135ea719b91f457a0072748ded0e852e7d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/c02e9e135ea719b91f457a0072748ded0e852e7d",
+                "reference": "c02e9e135ea719b91f457a0072748ded0e852e7d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5 || ^7.5",
+                "smarty/smarty-lexer": "^3.1"
+            },
+            "time": "2022-11-22T21:47:32+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "libs/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Monte Ohrt",
+                    "email": "monte@ohrt.com"
+                },
+                {
+                    "name": "Uwe Tews",
+                    "email": "uwe.tews@googlemail.com"
+                },
+                {
+                    "name": "Rodney Rehm",
+                    "email": "rodney.rehm@medialize.de"
+                },
+                {
+                    "name": "Simon Wisselink",
+                    "homepage": "https://www.iwink.nl/"
+                }
+            ],
+            "description": "Smarty - the compiling PHP template engine",
+            "homepage": "https://smarty-php.github.io/smarty/",
+            "keywords": [
+                "templating"
+            ],
+            "support": {
+                "forum": "https://github.com/smarty-php/smarty/discussions",
+                "issues": "https://github.com/smarty-php/smarty/issues",
+                "source": "https://github.com/smarty-php/smarty/tree/v4.3.0"
+            },
+            "install-path": "../smarty/smarty"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
