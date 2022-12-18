@@ -9,7 +9,7 @@
         public static function getDB(){
             try{
                 $conn = new PDO(
-                    "mysql:host=localhost;dbname=mvc;charset=utf8",
+                    "mysql:host=localhost;dbname=ecommerce;charset=utf8",
                     "root",
                     ""
                 );

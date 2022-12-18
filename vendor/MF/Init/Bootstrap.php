@@ -32,7 +32,7 @@
                     $controller = new $class();
                     $action = $route['action'];
                     $controller->$action();
-
+                    exit;
                     
                 }
             }

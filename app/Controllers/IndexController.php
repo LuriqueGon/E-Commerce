@@ -7,9 +7,16 @@
 
         public function index(){
             $this->render('index');
+
         }
 
-        
+        public function auth(){
+            if($this->autentication()){
+                header('location: /');
+            }
+
+            $this->render('auth', 'defaultLay');
+        }
     }
 
 ?>

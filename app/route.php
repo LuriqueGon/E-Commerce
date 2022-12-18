@@ -10,7 +10,13 @@ use MF\Init\Bootstrap;
                 'route' => '/',
                 'controller' => 'IndexController',
                 'action' => 'index'
-            );            
+            );  
+            $routes['auth'] = array(
+                'route' => '/auth',
+                'controller' => 'IndexController',
+                'action' => 'auth'
+            );  
+                      
 
             $routes['categoriaRoupas'] = array(
                 'route' => '/categorias/roupas',
@@ -18,6 +24,25 @@ use MF\Init\Bootstrap;
                 'action' => 'index'
             );            
 
+
+            $routes['cadastrar'] = array(
+                'route' => '/auth/register',
+                'controller' => 'AuthController',
+                'action' => 'register'
+            );            
+            $routes['entrar'] = array(
+                'route' => '/auth/login',
+                'controller' => 'AuthController',
+                'action' => 'login'
+            );            
+            $routes['sair'] = array(
+                'route' => '/logout',
+                'controller' => 'AuthController',
+                'action' => 'logout'
+            );            
+            
+
+            
             
 
 

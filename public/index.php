@@ -3,6 +3,5 @@
     require_once "../vendor/autoload.php";
 
     $route = new \App\Route;
-    $smarty = new Smarty();
     
 ?>
