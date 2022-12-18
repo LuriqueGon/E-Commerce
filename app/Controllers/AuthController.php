@@ -9,7 +9,6 @@
         public function register(){
 
             if($this->autentication()){
-                echo 1;
                 header('location: /');
             }else{
                 $user = Container::getModel('User');
@@ -21,9 +20,10 @@
     
                 if($user->register()){
                     $user->autentication();
-                    header('location: /');
-                }else{
-                    header('location: '.$_SERVER['HTTP_REFERER'].'?error=1&msg=ErroAoCadastrarUsuario');
+                    
+                    $msg = Container::getModel('message');
+                    $msg->setMessage('Cadastro feito com sucesso', 'success','/');
+            
                 }
             }
 
@@ -37,19 +37,23 @@
                 $user = Container::getModel('User');
                 $user->__set('email',$_POST['email']);
                 $user->__set('password',$_POST['password']);
-    
+                
                 if($user->autentication()){
-                    header('location: /');
-                }else{
-                    header('location: '.$_SERVER['HTTP_REFERER'].'?error=1&msg=ErroAoCadastrarUsuario');
+                    echo 1;
+                    $msg = Container::getModel('message');
+                    $msg->setMessage('Login feito com sucesso', 'success','/');
                 }
             }
 
         }
 
         public function logout(){
-            session_destroy();
-            header('location: '.$_SERVER['HTTP_REFERER']);
+            $_SESSION['username'] = "";
+            $_SESSION['email'] = "";
+            $_SESSION['perm'] = "";
+            $_SESSION['ativo'] = "";
+            $msg = Container::getModel('message');
+            $msg->setMessage('Logout feito com sucesso', 'success','/');
         }
 
     }

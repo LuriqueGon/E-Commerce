@@ -1,6 +1,8 @@
 <?php
 
     namespace MF\Controller;
+
+    use MF\Model\Container;
     use Smarty;
 
     abstract class Action{

@@ -1,7 +1,16 @@
+<?php
+
+use MF\Model\Container;
+
+$this->view->message = Container::getModel('message');
+$this->view->flassMessage = $this->view->message->getMessage();
+
+?>
+
 <section id="form">
     <div class="container">
         <div class="row">
-            <div class="col-sm-4 offset-sm-1">
+            <div class="col-sm-5">
                 <div class="login-form text-center">
                     <h2>Entre na sua Conta</h2>
                     <form action="/auth/login" method="POST">
@@ -11,7 +20,8 @@
                     </form>
                 </div>
             </div>
-            <div class="col-sm-4 offset-sm-1">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-5">
                 <div class="signup-form text-center">
                     <h2>Cadastre sua conta</h2>
                     <form action="/auth/register" method="POST">
@@ -27,4 +37,20 @@
         </div>
     </div>
 </section>
-<!--/form-->
+	
+<?php if(!empty($this->view->flassMessage)){ ?>
+    <div class="msg-container">
+        <p class="msg <?php echo $this->view->flassMessage['type'] ?>">
+            <?php echo $this->view->flassMessage['msg'] ?>
+        </p>
+    </div>
+<?php }  ?>
+
+<?php
+
+    if(!empty($this->view->flassMessage['msg'])){
+        $this->view->message->clearMessage();
+    }
+
+
+?>

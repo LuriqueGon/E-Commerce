@@ -2,6 +2,7 @@
 
     namespace App\Models;
     use MF\Model\Model;
+    use MF\Model\Container;
 
     class User extends Model {
         protected $username;
@@ -9,68 +10,73 @@
         protected $emailConfirm;
         protected $password;
         protected $passwordConfirm;
-
+        protected $msg;
 
         public function register(){
-            $res = $this->resgiterValidation();
-
-            if($res[0]){
+            if($this->resgiterValidation()){
                 return $this->userRegister();
             }else{
                 // TRATATIVA DA MSG
-                echo $res[1];
             }
         }
 
         public function autentication(){
-            $res = $this->loginValidation();
-
-            if($res[0]){
-               $this->sessionAuth($this->userLogin());
-            }else{
-                // TRATATIVA DA MSG
-                echo $res[1];
+            if($this->loginValidation()){
+                echo 2;
+                $user = $this->userLogin();
+                if(!empty($user)){
+                    echo 3;
+                    $this->sessionAuth($user);
+                    return true;
+                }else{
+                    $this->msg = Container::getModel('message');
+                    $this->msg->setMessage('Email não cadastrado ou Inativo', 'error','back');
+                }
             }
         }
 
         private function resgiterValidation(){
+            $this->msg = Container::getModel('message');
+
             if(strlen($this->__get('username')) > 4 && $this->__get('username')){
                 if($this->__get('email')){
                     if(strlen($this->__get('password')) >= 8 && $this->__get('password')){
                         if($this->__get('email') == $this->__get('emailConfirm')){
                             if($this->__get('password') == $this->__get('passwordConfirm')){
                                 if(empty($this->findByEmail())){
-                                    return [true, "Sucesso"];
+                                    return true;
                                 }else{
-                                    return [false, "Email já cadastrado"];
+                                    $this->msg->setMessage('Email já cadastrado','error','back');
                                 }
                             }else{
-                                return [false, "As senhas não são iguais"];
+                                $this->msg->setMessage('As senhas não são iguais','error','back');
                             }
                         }else{
-                            return [false, "os endereços de E-mail não são iguais"];
+                            $this->msg->setMessage('os endereços de E-mail não são iguais','error','back');
                         }
                     }else{
-                        return [false, "A senha deve ter pelo menos 8 caracteres"];
+                        $this->msg->setMessage('A senha deve ter pelo menos 8 caracteres','error','back');
                     }
                 }else{
-                    return [false, "insira seu email"];
+                    $this->msg->setMessage('insira seu email','error','back');
                 }
             }else{
-                return [false, "Usuario precisa ter pelo menos 4 caracteres"];
+                $this->msg->setMessage('Usuario precisa ter pelo menos 4 caracteres','error','back');
             }
             
         }
 
         private function loginValidation(){
+            $this->msg = Container::getModel('message');
+
             if($this->__get('email')){
                 if(strlen($this->__get('password')) >= 8 && $this->__get('password')){
-                    return [true, "Sucesso"];
+                    return true;
                 }else{
-                    return [false, "A senha deve ter pelo menos 8 caracteres"];
+                    $this->msg->setMessage('A senha deve ter pelo menos 8 caracteres','error','back');
                 }
             }else{
-                return [false, "insira seu email"];
+                $this->msg->setMessage('insira seu email','error','back');
             }
         }
 
@@ -88,7 +94,7 @@
         }
 
         private function userLogin(){
-            $query = "SELECT * FROM users WHERE email = ? AND `password` =?";
+            $query = "SELECT * FROM users WHERE email = ? AND `password` =? AND ativo = 1";
             $stmt = $this->db->prepare($query);
             
             $stmt->bindValue(1,$this->__get('email'));
@@ -97,10 +103,6 @@
             $stmt->execute();
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         }
-
-        
-
-
 
         private function findByEmail(){
             $stmt = $this->db->prepare('SELECT * FROM users WHERE email = ?');

@@ -1,3 +1,18 @@
+<?php
+
+    use MF\Model\Container;
+
+    $this->view->message = Container::getModel('message');
+    $this->view->flassMessage = $this->view->message->getMessage();
+
+    if(!empty($this->view->flassMessage['msg'])){
+        $this->view->message->clearMessage();
+    }
+
+
+?>
+
+
 <div class="content wrapper">
     <div class="row">
         <div class="col-sm-2">
@@ -62,6 +77,14 @@
         </div>
     </div>
 </div>
+
+<?php if(!empty($this->view->flassMessage)){ ?>
+    <div class="msg-container">
+        <p class="msg <?php echo $this->view->flassMessage['type'] ?>">
+            <?php echo $this->view->flassMessage['msg'] ?>
+        </p>
+    </div>
+<?php }  ?>
 
 <script>
     $(document).ready(function() {
