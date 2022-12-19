@@ -283,15 +283,22 @@ body#default .msg{
     border-bottom: 3px solid black!important;
 
 }
+.border-dark-2{
+    border: 1px solid #bbb;
+    border-bottom: 3px solid black;
+
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
 @media (min-width: 1200px){
     .container {
-        width: 1175px!important;
+        max-width: 1130px!important;
     }
-    
+    #menuContainer{
+        max-width: 1170px!important;
+    }
 }
 @media (max-width: 768px) {
     #sidebar {

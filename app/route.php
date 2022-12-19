@@ -23,7 +23,12 @@ use MF\Init\Bootstrap;
                 'controller' => 'IndexController',
                 'action' => 'index'
             );            
-
+            $routes['Teste'] = array(
+                'route' => '/teste',
+                'controller' => 'IndexController',
+                'action' => 'teste'
+            );            
+            
 
             $routes['cadastrar'] = array(
                 'route' => '/auth/register',

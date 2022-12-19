@@ -17,6 +17,10 @@
 
             $this->render('auth', 'defaultLay');
         }
+
+        public function teste(){
+            $this->render('teste');
+        }
     }
 
 ?>

@@ -137,7 +137,7 @@ a#scrollUp i{
 }
 
 .header-middle .container .row {
-  border-bottom: 1px solid #f5f5f5;
+  /* border-bottom: 1px solid #f5f5f5; */
   margin-left: 0;
   margin-right: 0;
   padding-bottom: 20px;
@@ -351,7 +351,7 @@ ul.sub-menu {
 
 
 .footer-top .container {
-  border-bottom: 1px solid #E0E0DA;
+  /* border-bottom: 1px solid #E0E0DA; */
   padding-bottom: 20px;
 }
 
@@ -1578,7 +1578,7 @@ h2.title {
 
 
 #cart_items .cart_info .table.table-condensed tr {
-  border-bottom: 1px solid#F7F7F0
+  /* border-bottom: 1px solid#F7F7F0 */
 }
 
 #cart_items .cart_info .table.table-condensed tr:last-child {
@@ -1588,6 +1588,7 @@ h2.title {
 .cart_info table tr td {
   border-top: 0 none;
   vertical-align: inherit;
+  border-bottom: 0!important;
 }
 
 
@@ -1977,7 +1978,7 @@ h2.title {
 #cart_items .cart_info 
 .table.table-condensed.total-result 
 .shipping-cost {
-  border-bottom: 1px solid #F7F7F0;
+  /* border-bottom: 1px solid #F7F7F0; */
 }
 
 
