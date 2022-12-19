@@ -224,11 +224,6 @@ a.article:hover {
     min-height: 100vh;
     transition: all 0.3s;
 }
-
-#main-container{
-    min-height: 120vh;
-}
-
 .mudarMenu{
     background-color: #0009!important;
     padding: 1rem!important;

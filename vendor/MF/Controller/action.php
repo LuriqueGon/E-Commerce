@@ -54,6 +54,14 @@
                 require "../app/View/components/footer.phtml";
             }else if($component == 'sidebar'){
                 require "../app/View/components/sidebar.phtml";
+            }else if($component == 'category'){
+                require "../app/View/components/category.phtml";
+            }else{
+                if(file_exists("../app/view/components/$atualClass/$component.phtml")){
+                    require "../app/view/components/$atualClass/$component.phtml";
+                }else{
+                    require "../app/view/components/$component.phtml";
+                }
             }
         }
 

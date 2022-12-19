@@ -104,7 +104,7 @@
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         }
 
-        private function findByEmail(){
+        public function findByEmail(){
             $stmt = $this->db->prepare('SELECT * FROM users WHERE email = ?');
             $stmt->bindValue(1, $this->__get('email'));
             $stmt->execute();

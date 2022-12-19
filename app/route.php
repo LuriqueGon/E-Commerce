@@ -16,13 +16,22 @@ use MF\Init\Bootstrap;
                 'controller' => 'IndexController',
                 'action' => 'auth'
             );  
-                      
-
-            $routes['categoriaRoupas'] = array(
-                'route' => '/categorias/roupas',
+            $routes['cart'] = array(
+                'route' => '/cart',
                 'controller' => 'IndexController',
-                'action' => 'index'
-            );            
+                'action' => 'cart'
+            );         
+            $routes['profile'] = array(
+                'route' => '/profile',
+                'controller' => 'IndexController',
+                'action' => 'profile'
+            );         
+            $routes['favorite'] = array(
+                'route' => '/favorite',
+                'controller' => 'IndexController',
+                'action' => 'favorite'
+            );         
+            
             $routes['Teste'] = array(
                 'route' => '/teste',
                 'controller' => 'IndexController',

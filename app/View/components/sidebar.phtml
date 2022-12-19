@@ -1,104 +1,43 @@
-<?php
-
-    use MF\Model\Container;
-
-    $this->view->message = Container::getModel('message');
-    $this->view->flassMessage = $this->view->message->getMessage();
-
-    if(!empty($this->view->flassMessage['msg'])){
-        $this->view->message->clearMessage();
-    }
-
-
-?>
-
-
-<div class="content wrapper">
-    <div class="row">
-        <div class="col-sm-2">
-            <div class="wrapper">
-                <nav id="sidebar">
-                    <div class="sidebar-header text-center">
-                        <h3>Categorias</h3>
-                    </div>
-                    <ul class="list-unstyled components">
-                        <li class="active">
-                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Camisas</a>
-                            <ul class="collapse list-unstyled text-light" id="homeSubmenu">
-                                <li class="text-light">
-                                    <a href="#" class="text-light">Home 1</a>
-                                </li>
-                                <li class="text-light">
-                                    <a href="#" class="text-light">Home 2</a>
-                                </li>
-                                <li class="text-light">
-                                    <a href="#" class="text-light">Home 3</a>
-                                </li>
-                            </ul>
-                        </li>
-    
+    <div class="container" id="menuContainer">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="shop-menu pull-left">
+                    <ul class="nav navbar-nav d-flex flex-row">
+                        <li><a href="mailto:info@domain.com"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                        <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
                     </ul>
-                </nav>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-10 position-fixed" style="right: .2rem;z-index: 999!important;">
-            <div class="container" id="menuContainer">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="shop-menu pull-left">
-                            <ul class="nav navbar-nav d-flex flex-row">
-                                <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-                                <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 position-relative mt-2">
-                            <input type="search" class="form-control form-control-dark" name="query" placeholder="Search..." aria-label="Search" style="padding: 1rem;text-indent: 1rem;border-bottom: 3px solid;">
-                            <button type="submit" class="btn btn-primary position-absolute bg-transparent text-dark" style="top: -17px;right: 0;"> <i class="fas fa-search" ></i> </button>
-                        </form>
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="shop-menu pull-right">
-                            <ul class="nav navbar-nav d-flex flex-row">
-                                <?php if(isset($_SESSION['perm']) && $_SESSION['perm'] >= 0){ ?>
-                                    <li><a href="#"><i class="fa fa-user"></i> <?php echo $_SESSION['username'] ?></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i> Lista de Desejos</a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i> Compras</a></li>
-                                    <li><a href="/logout"><i class="fa fa-times"></i> Sair</a></li>
-                                <?php }else{ ?>
-                                    <li><a href="/auth"><i class="fa fa-lock"></i> Login</a></li>
-                                <?php } ?>
-                                <li></li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="col-sm-4">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 position-relative mt-2">
+                    <input type="search" class="form-control form-control-dark" name="query" placeholder="Search..." aria-label="Search" style="padding: 1rem;text-indent: 1rem;border-bottom: 3px solid;">
+                    <button type="submit" class="btn btn-primary position-absolute bg-transparent text-dark" style="top: -17px;right: 0;"> <i class="fas fa-search"></i> </button>
+                </form>
+            </div>
+            <div class="col-sm-5">
+                <div class="shop-menu pull-right">
+                    <ul class="nav navbar-nav d-flex flex-row">
+                        <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] >= 0) { ?>
+                            <li><a href="/profile"><i class="fa fa-user"></i> <?php echo $_SESSION['username'] ?></a></li>
+                            <li><a href="/favorite"><i class="fa fa-star"></i> Lista de Desejos</a></li>
+                            <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+                            <li><a href="/logout"><i class="fa fa-times"></i> Sair</a></li>
+                        <?php } else { ?>
+                            <li><a href="/auth"><i class="fa fa-lock"></i> Login</a></li>
+                        <?php } ?>
+                        <li></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<?php if(!empty($this->view->flassMessage)){ ?>
-    <div class="msg-container">
-        <p class="msg <?php echo $this->view->flassMessage['type'] ?>">
-            <?php echo $this->view->flassMessage['msg'] ?>
-        </p>
-    </div>
-<?php }  ?>
-
-<script>
-    $(document).ready(function() {
-        $('#sidebarCollapse').on('click', function() {
-            $('#sidebar').toggleClass('active');
-        });
-    });
-
-    const mudarMenu = () => {
-        if(scrollY > 0){
-            $('#menuContainer').addClass('mudarMenu')
-        }else{
-            $('#menuContainer').removeClass('mudarMenu')
+    <script>
+        const mudarMenu = () => {
+            if (scrollY > 0) {
+                $('#menuContainer').addClass('mudarMenu')
+            } else {
+                $('#menuContainer').removeClass('mudarMenu')
+            }
         }
-    }
-</script>
+    </script>
