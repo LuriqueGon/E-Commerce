@@ -56,6 +56,25 @@ use MF\Init\Bootstrap;
             );            
             
 
+            $routes['setImage'] = array(
+                'route' => '/profile/setImage',
+                'controller' => 'UserController',
+                'action' => 'setImage'
+            );            
+            $routes['editProfile'] = array(
+                'route' => '/profile/editProfile',
+                'controller' => 'UserController',
+                'action' => 'editProfile'
+            );            
+            $routes['setLocale'] = array(
+                'route' => '/profile/setLocale',
+                'controller' => 'UserController',
+                'action' => 'setLocale'
+            );            
+            
+
+            
+
             
             
 

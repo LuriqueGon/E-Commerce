@@ -7,15 +7,19 @@
                     <img src="img/home/product4.jpg" alt="" />
                     <h2>$56</h2>
                     <p>Easy Polo Black Edition</p>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                </div>
-                <div class="product-overlay">
-                    <div class="overlay-content">
-                        <h2>$56</h2>
-                        <p>Easy Polo Black Edition</p>
+                    <?php if ($_SESSION['username']) { ?>
                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                    </div>
+                    <?php } ?>
                 </div>
+                <?php if ($_SESSION['username']) { ?>
+                    <div class="product-overlay">
+                        <div class="overlay-content">
+                            <h2>$56</h2>
+                            <p>Easy Polo Black Edition</p>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                        </div>
+                    </div>
+                <?php } ?>
                 <img src="img/home/new.png" class="new" alt="" />
             </div>
         </div>
@@ -27,15 +31,19 @@
                     <img src="img/home/product5.jpg" alt="" />
                     <h2>$56</h2>
                     <p>Easy Polo Black Edition</p>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                </div>
-                <div class="product-overlay">
-                    <div class="overlay-content">
-                        <h2>$56</h2>
-                        <p>Easy Polo Black Edition</p>
+                    <?php if ($_SESSION['username']) { ?>
                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                    </div>
+                    <?php } ?>
                 </div>
+                <?php if ($_SESSION['username']) { ?>
+                    <div class="product-overlay">
+                        <div class="overlay-content">
+                            <h2>$56</h2>
+                            <p>Easy Polo Black Edition</p>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                        </div>
+                    </div>
+                <?php } ?>
                 <img src="img/home/sale.png" class="new" alt="" />
             </div>
         </div>

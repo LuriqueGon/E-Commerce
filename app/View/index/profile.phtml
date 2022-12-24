@@ -1,11 +1,14 @@
 <?php
 
-    use MF\Model\Container;
-    $user = Container::getModel('user');
-    $user->__set('email',$_SESSION['email']);
-    $informacoes = $user->findByEmail();
+use MF\Model\Container;
 
-    // var_dump($informacoes);
+$user = Container::getModel('user');
+$user->__set('email', $_SESSION['email']);
+$informacoes = $user->findByEmail();
+
+$locale = Container::getModel('locale');
+$locale->__set('idUser', $_SESSION['id']);
+$endereco = $locale->findById();
 
 ?>
 
@@ -25,26 +28,29 @@
 
 <section class="content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="card card-primary card-outline">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="card card-primary card-outline border-1 border-dark" style="border-radius: 12px;">
                     <div class="card-body box-profile">
-                        <?php if(isset($informacoes['perfil']) && !empty($informacoes['perfil'])){ ?>
+                        <?php if (isset($informacoes['perfil']) && !empty($informacoes['perfil'])) { ?>
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="/dist/img/<?php echo $informacoes['perfil']?>" alt="User profile picture">
+                                <img class="profile-user-img img-fluid img-circle" src="/img/profiles/<?php echo $informacoes['perfil'] ?>" style="width: 15rem;height: 15rem; border-radius: 100%;box-shadow: 0.2rem 0.1rem 0.5rem black;">
                             </div>
-                        <?php }else{?>
+                        <?php } else { ?>
                             <div class="text-center d-flex text-center justify-content-center">
-                                <a href="/profile/addImage" class="btn btn-primary ">Adicionar Foto</a>
+                                <a href="/profile/addImage" class="btn btn-primary " data-toggle="modal" data-target="#imagePerfilChange">Adicionar Foto</a>
                             </div>
+                        <?php } ?>
+                        <h3 class="profile-username text-center"><?php echo $_SESSION['username'] ?> </h3>
+                        
+                        <?php if($_SESSION['perm'] >= 1){ ?>
+                            <p class="text-muted text-center">Permissão Nivel <?php echo $_SESSION['perm'] ?></p>
                         <?php }?>
-                        <h3 class="profile-username text-center"><?php echo $_SESSION['username'] ?></h3>
-
-                        <p class="text-muted text-center">Permissão Nivel <?php echo $_SESSION['perm'] ?></p>
+                        <p class="display-6 text-dark text-center"> R$ <?php echo empty($informacoes['credit']) ?  '00,00' : $informacoes['credit'] ?></p>
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Compras: </b> <a class="float-right"></a>
+                                <b>Compras: </b> <a class="float-right"> <?php echo 0 ?> </a>
                             </li>
                             <li class="list-group-item">
                                 <b>Registro: </b> <a class="float-right"><?php echo date('d/m/Y', strtotime($informacoes['DataRegistro'])) ?></a>
@@ -52,12 +58,28 @@
                             <li class="list-group-item">
                                 <b>Email: </b> <a href="mailto:<?php echo $informacoes['email'] ?>" class="float-right"><?php echo $informacoes['email'] ?></a>
                             </li>
+                            <li class="list-group-item">
+                                <b>Endereço Padrão: </b><?php echo !empty($informacoes['localeMainId']) ? 
+
+                                '<p class="text-dark" style="letter-spacing:.2rem ; border: 2px solid black; padding: .5rem; margin: .5rem 0; background-color: #bbb;">'. $endereco['rua'] . ', ' . $endereco['logadouro'] . ' ( '. $endereco['complemento'] . ' ). ' . $endereco['bairro'] .' - '.$endereco['cidade'] . ' ' . $endereco['estado'] . ' / ' . $endereco['cep'] . '</p>':
+
+                                '<a href="/profile/addLocalite" class="float-right" data-toggle="modal" data-target="#LocaliteChange">Adicionar Endereço Padrão</a>' ?>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Cartão de credito: </b> 
+                                <?php echo !empty($informacoes['cart']) ? '<p></p>' : '<a href="/profile/addPayment" class="float-right" data-toggle="modal" data-target="#LocaliteChange">Adicionar Cartão de credito</a>' ?>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Cartão de debito: </b>
+                                <?php echo !empty($informacoes['cart']) ? '<p></p>' : '<a href="/profile/addPayment" class="float-right" data-toggle="modal" data-target="#LocaliteChange">Adicionar Cartão de debito</a>' ?>
+                            </li>
+                            
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-7 offset-sm-1">
-                <div class="card">
+            <div class="col-sm-6 offset-sm-1">
+                <div class="card ">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
@@ -65,26 +87,33 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <div class="tab-pane active" id="settings">
-                                <form class="form-horizontal" action="/usuarios/editar/profile" method="POST">
+                            <div class="tab-pane active " id="settings">
+                                <form class="form-horizontal" action="/profile/editProfile" method="POST">
                                     <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Novo Nome</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="nome"value="<?php echo $informacoes['username'] ?>" class="form-control" id="inputName" placeholder="Name">
+                                        <label for="username" class="col-sm-4 col-form-label">Novo Nome <i class="fa-solid fa-right-long "></i></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="username" value="" class="form-control border-0 border-bottom border-2 border-secondary" id="username" placeholder="Name">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">Novo Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" name="email" value="<?php echo $informacoes['email'] ?>" class="form-control" id="inputEmail" placeholder="Email">
+                                        <label for="email" class="col-sm-4 col-form-label">Novo Email <i class="fa-solid fa-right-long "></i></label>
+                                        <div class="col-sm-8">
+                                            <input type="email" name="email" value="" class="form-control border-0 border-bottom border-2 border-secondary" id="email" placeholder="Email">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputName2" class="col-sm-2 col-form-label">Nova Senha</label>
-                                        <div class="col-sm-10">
-                                            <input type="password" name="senha" value="" class="form-control" id="inputName2" placeholder="Senha">
+                                        <label for="password" class="col-sm-4 col-form-label">Nova Senha <i class="fa-solid fa-right-long "></i></label>
+                                        <div class="col-sm-8">
+                                            <input type="password" name="password" value="" class="form-control border-0 border-bottom border-2 border-secondary" id="password" placeholder="Senha">
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="passwordConfirm" class="col-sm-4 col-form-label">Confirme sua nova Senha <i class="fa-solid fa-right-long "></i></label>
+                                        <div class="col-sm-8">
+                                            <input type="passwordConfirm" name="passwordConfirm" value="" class="form-control border-0 border-bottom border-2 border-secondary" id="passwordConfirm" placeholder="Confirmação de Senha">
+                                        </div>
+                                    </div>
+                                    
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
                                             <button type="submit" class="btn btn-danger">Editar </button>
@@ -99,3 +128,106 @@
         </div>
     </div>
 </section>
+
+<div class="modal" tabindex="-1" id="imagePerfilChange">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar Imagem</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="mb-5" action="/profile/setImage" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <label for="Image" class="form-label">Escolha sua foto de perfil</label>
+                    <input class="form-control" type="file" name="perfil" id="formFile" onchange="preview()" required>
+                    <div class="img-wrapper" style="width: 100%; text-align: center;">
+                        <img id="frame" src="" class="img-fluid" style="width: 15rem;height: 15rem;border-radius: 100%;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearImage()" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-danger btn-alterImage">Alterar Imagem</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" id="LocaliteChange">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar Endereço</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="mb-5" action="/profile/setLocale" method="POST">
+                <div class="modal-body">
+                    <div class="container-modal">
+                        <div class="row" style="margin-bottom: 3rem;">
+                            <div class="col-sm-4">
+                                <input type="text" placeholder="Insira seu CEP" class="input-control pl-4 w-100" minlength="8" id="cep" name="cep" step="1" onchange="pesquisarCEP()" required>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" placeholder="UF" id="estado" name="estado" class="input-control pl-4 w-100 disabled" readonly required>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="cidade" id="cidade" name="cidade" class="input-control pl-4 w-100 disabled" readonly required>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-bottom: 3rem;">
+                            <div class="col">
+                                <input type="text" placeholder="bairro" id="bairro" name="bairro" class="input-control pl-4 w-100 disabled" readonly required>
+                            </div>
+
+                            <div class="col">
+                                <input type="text" placeholder="logadouro" id="logadouro" name="logadouro" class="input-control pl-4 w-100 disabled" readonly required>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-bottom: 3rem;">
+                            <div class="col-sm-5">
+                                <input type="text" placeholder="Complemento" name="complemento" id="complemento" class="input-control pl-4 w-100" maxlength="21" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" placeholder="Rua" id="rua" name="rua" class="input-control pl-4 w-100" required>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="number" placeholder="Num" id="number" name="number" class="input-control pl-4 w-100 " required>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <textarea name="obs" id="obs" placeholder="Observações antes da entrega" class="input-control pl-4 w-100" style="resize: none; outline: none; color: black;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-danger btn-alterImage">Adicionar Endereço</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/js/cep.js"></script>
+</div>
+
+
+
+<script>
+    function preview() {
+        frame.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    function clearImage() {
+        document.getElementById('formFile').value = null;
+        frame.src = "";
+        closeModal()
+    }
+
+    function closeModal() {
+        $('#imagePerfilChange').modal('hide')
+    }
+</script>

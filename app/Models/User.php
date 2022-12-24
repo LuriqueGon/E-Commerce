@@ -11,6 +11,7 @@
         protected $password;
         protected $passwordConfirm;
         protected $msg;
+        protected $perfil;
 
         public function register(){
             if($this->resgiterValidation()){
@@ -27,11 +28,41 @@
                 if(!empty($user)){
                     echo 3;
                     $this->sessionAuth($user);
+
+                    $_SESSION['id'] = $this->getIdByEmail();
                     return true;
                 }else{
                     $this->msg = Container::getModel('message');
                     $this->msg->setMessage('Email não cadastrado ou Inativo', 'error','back');
                 }
+            }
+        }
+
+        public function setImage(){
+            $stmt = $this->db->prepare('UPDATE users SET perfil = ? WHERE email = ?');
+            $stmt->bindValue(1,$this->__get('perfil'));
+            $stmt->bindValue(2,$this->__get('email'));
+
+            if($stmt->execute()){
+                return true;
+
+            }
+        }
+
+        public function edit(){
+            $query = "UPDATE users SET username = ?, email = ?, `password` = ? WHERE email = ?";
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(1,$this->__get('username'));
+            $stmt->bindValue(2,$this->__get('email'));
+            $stmt->bindValue(3,$this->__get('password'));
+            $stmt->bindValue(4,$_SESSION['email']);
+
+            $_SESSION['username'] = $this->__get('username');
+            $_SESSION['email'] = $this->__get('email');
+
+            if($stmt->execute()){
+                return true;
             }
         }
 
@@ -110,6 +141,26 @@
             $stmt->execute();
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+
+        public function getIdByEmail(){
+            $stmt = $this->db->prepare('SELECT id FROM users WHERE email = ?');
+            $stmt->bindValue(1, $this->__get('email'));
+            $stmt->execute();
+
+            return $stmt->fetch(\PDO::FETCH_ASSOC)['id'];
+        }
+
+        public function haveLocale(){
+            $stmt = $this->db->prepare('SELECT localeMainId FROM users WHERE email = ?');
+            $stmt->bindValue(1, $this->__get('email'));
+            $stmt->execute();
+
+            if(empty($stmt->fetch(\PDO::FETCH_ASSOC)['localeMainId'])){
+                return false;
+            }else{
+                return true;
+            }
         }
 
         private function sessionAuth($user){

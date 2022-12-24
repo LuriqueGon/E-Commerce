@@ -6,6 +6,16 @@ input{
     outline: none!important;
 }
 
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+
+}
+
 body {
 	font-family: "Segoe UI", Arial, sans-serif;
 }
@@ -282,6 +292,30 @@ body#default .msg{
     border: 1px solid #bbb;
     border-bottom: 3px solid black;
 
+}
+.btn-alterImage{
+    background-color: #FE980F!important;
+    border-radius: 6px;
+    border-color: #FE980F;
+}
+.container-modal{
+    width: 90%!important;
+    margin: auto;
+}
+
+.container-modal input.input-control, .container-modal textarea.input-control{
+    padding: 0.5rem 1rem!important;
+    border: 0!important;
+    background: #ccc!important;
+    font-weight: bold!important;
+    letter-spacing: .2rem!important;
+    border: 1px solid #aeaeae!important;
+    border-bottom: 3px solid #aaa!important;
+}
+.container-modal input.disabled{
+    background: darkgray!important;
+    color: white;
+    border-color: gray!important;
 }
 
 /* ---------------------------------------------------

@@ -1,3 +1,4 @@
+<!-- // CLEAR MESSAGE -->
 <?php
 
 use MF\Model\Container;
@@ -57,7 +58,7 @@ if (!empty($this->view->flassMessage['msg'])) {
 
 </head>
 
-<body onscroll="mudarMenu()">
+<body onscroll="mudarMenu()" id="default">
 
 	<!-- SIDEBAR -->
 	<div class="content-wrapper">
@@ -82,7 +83,7 @@ if (!empty($this->view->flassMessage['msg'])) {
 
 	<!-- MESSAGE -->
 	<?php if (!empty($this->view->flassMessage)) { ?>
-		<div class="msg-container">
+		<div class="msg-container" style="top: 11rem!important;">
 			<p class="msg <?php echo $this->view->flassMessage['type'] ?>">
 				<?php echo $this->view->flassMessage['msg'] ?>
 			</p>
