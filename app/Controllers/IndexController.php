@@ -52,6 +52,14 @@ use MF\Model\Container;
         public function teste(){
             $this->render('teste');
         }
+
+        public function contactUs(){
+            $msg = Container::getModel('message');
+            if(!$this->autentication()){
+                $msg->setMessage('Você precisa estar logado para acessar essa página', 'error','/');
+            }
+            $this->render('contato', 'contato');
+        }
     }
 
 ?>

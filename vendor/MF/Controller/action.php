@@ -81,7 +81,7 @@
             $this->view->phpMailer['emailSiteAdmin'] = "gamenizados@gmail.com";
             $this->view->phpMailer['user'] = "";
             $this->view->phpMailer['name'] = "Contato E-Commerce";
-            $this->view->phpMailer['password'] = "xandy1011";
+            $this->view->phpMailer['password'] = "hfkmjxeiqxyywgsf";
             $this->view->phpMailer['port'] = 587;
             $this->view->phpMailer['smtpAuth'] = true;
             $this->view->phpMailer['smtpSecure'] = "tls";

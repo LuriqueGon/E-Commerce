@@ -31,12 +31,16 @@ use MF\Init\Bootstrap;
                 'controller' => 'IndexController',
                 'action' => 'favorite'
             );         
-            
             $routes['Teste'] = array(
                 'route' => '/teste',
                 'controller' => 'IndexController',
                 'action' => 'teste'
-            );            
+            );     
+            $routes['contactUs'] = array(
+                'route' => '/contactUs',
+                'controller' => 'IndexController',
+                'action' => 'contactUs'
+            );          
             
 
             $routes['cadastrar'] = array(
@@ -72,7 +76,15 @@ use MF\Init\Bootstrap;
                 'action' => 'setLocale'
             );            
             
-
+            $routes['sendMessage'] = array(
+                'route' => '/contactUs/sendMessage',
+                'controller' => 'AdminController',
+                'action' => 'sendMessage'
+            );            
+            
+            
+                    
+            
             
 
             
