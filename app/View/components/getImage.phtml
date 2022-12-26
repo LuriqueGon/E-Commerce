@@ -1,0 +1,11 @@
+<?php
+
+    use MF\Model\Container;
+
+    $user = Container::getModel('user');
+    $user->__set('id', $_SESSION['id']);
+    $user->__set('perfil', $user->getImage());
+
+    $_SESSION['perfil'] = $user->__get('perfil');
+
+?>

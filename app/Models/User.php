@@ -78,7 +78,7 @@
         private function resgiterValidation(){
             $this->msg = Container::getModel('message');
 
-            if(strlen($this->__get('username')) > 4 && $this->__get('username')){
+            if(strlen($this->__get('username')) >= 4 && $this->__get('username')){
                 if($this->__get('email')){
                     if(strlen($this->__get('password')) >= 8 && $this->__get('password')){
                         if($this->__get('email') == $this->__get('emailConfirm')){

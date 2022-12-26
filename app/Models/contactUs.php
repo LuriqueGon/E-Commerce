@@ -51,4 +51,26 @@
                 $this->saveMessage();
             }
         }
+
+        public function getMessages(){
+            $stmt = $this->db->prepare('SELECT m.id, m.username, m.emailSend, m.numberContact, m.message, m.protocol, m.sendDate, m.id_user, m.seen, m.answered, u.ativo, u.perfil FROM `message` as m LEFT JOIN users as u ON m.id_user = u.id WHERE u.ativo = 1 ORDER BY seen ASC, answered ASC');
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function getMessage(){
+            $stmt = $this->db->prepare('SELECT m.id, m.username, m.emailSend, m.numberContact, m.message, m.protocol, m.sendDate, m.id_user, m.seen, m.answered, u.ativo, u.perfil FROM `message` as m LEFT JOIN users as u ON m.id_user = u.id WHERE u.ativo = 1 AND m.id = ? ORDER BY seen ASC, answered ASC');
+            $stmt->bindValue(1, $this->__get('id'));
+            $stmt->execute();
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+
+        public function seeMessage(){
+            $stmt = $this->db->prepare('UPDATE `message` SET seen = 1 WHERE id = ?');
+            $stmt->bindValue(1, $this->__get('id'));
+            $stmt->execute();
+        }
+
+        
+        
     }

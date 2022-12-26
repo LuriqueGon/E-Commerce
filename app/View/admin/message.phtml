@@ -1,0 +1,20 @@
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <a href="/adminConfig/messages" class="btn btn-success text-light" style="width: 18%;font-size: 1.5rem;">
+            <i class="fa-solid fa-left-long text-light pr-5" style="padding-right: .8rem;"></i>
+            Voltar
+        </a>
+        <div class="row">
+            <div class="col-md-12 col-lg-10 col-sm-12">
+                <div class="card white-box p-0">
+                    <div class="card-body">
+                        <h3 class="box-title mb-0">Mensagem Nº <?php echo $_GET['id']?></h3>
+                    </div>
+                    <?php $this->loadComponents('message') ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+</div>

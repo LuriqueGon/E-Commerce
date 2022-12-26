@@ -5,8 +5,7 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\Exception;
 
 class AdminController extends Action
 {
@@ -55,7 +54,8 @@ class AdminController extends Action
 
             
         } catch (Exception $e) {
-            $msg->setMessage('Não foi possível enviar a mensagem'. $mail->ErrorInfo, 'success','/');
+            $msg = Container::getModel('message');
+            $msg->setMessage('Não foi possível enviar a mensagem por e-mail, mas ela foi salva no nosso sistema, e logo será enviada', 'success','/');
         }
         
     }
@@ -74,4 +74,42 @@ class AdminController extends Action
 
         $this->render('admin', 'admin');
     }
+
+    public function messages(){
+        $msg = Container::getModel('message');
+        if(!$this->autentication()){
+            $msg->setMessage('Você precisa estar logado para acessar essa página', 'error','/');
+            exit;
+        }
+        if($_SESSION['perm'] < 3){
+            $msg->setMessage('Você precisa ter nivel de acesso 3 ou superior', 'error','/');
+            exit;
+
+        }
+
+        $this->render('messages', 'admin');
+    }
+
+    public function answerMessage(){
+        $msg = Container::getModel('message');
+        if(!$this->autentication()){
+            $msg->setMessage('Você precisa estar logado para acessar essa página', 'error','/');
+            exit;
+        }
+        if($_SESSION['perm'] < 3){
+            $msg->setMessage('Você precisa ter nivel de acesso 3 ou superior', 'error','/');
+            exit;
+
+        }
+        if(!isset($_GET['id']) || empty($_GET['id'])){
+            $msg->setMessage('Você precisa informar a mensagem', 'error','/');
+            exit;
+
+        }
+        $this->render('message', 'admin');
+
+    }
+
+    
+    
 }

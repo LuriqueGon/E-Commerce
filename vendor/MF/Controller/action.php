@@ -55,6 +55,8 @@
                 require "../app/View/components/sidebar.phtml";
             }else if($component == 'category'){
                 require "../app/View/components/category.phtml";
+            }else if($component == 'getImage'){
+                require "../app/View/components/getImage.phtml";
             }else{
                 if(file_exists("../app/view/components/".$this->view->class."/$component.phtml")){
                     require "../app/view/components/".$this->view->class."/$component.phtml";

@@ -1,0 +1,78 @@
+<?php
+
+use MF\Model\Container;
+
+$message = Container::getModel('contactUs');
+$messages = $message->getMessages();
+
+function inverteData($data){
+
+    $data_hora =explode(' ',$data);
+    $data = $data_hora[0];
+    $hora = $data_hora[1];
+
+    $data_separada = explode('-', $data);
+    $hora_separada = explode(':', $hora);
+
+    $dataConvertida = $data_separada[2]. "-" . $data_separada[1]. "-" .$data_separada[0]. " ".$hora_separada[1]. ":".$hora_separada[0];
+
+    return $dataConvertida;
+}
+
+?>
+
+
+
+<div class="comment-widgets">
+
+    <?php foreach ($messages as $key => $msg) { ?>
+        <a class="text-dark" href="/adminConfig/messages/message?id=<?php echo $msg['id']?>">
+        <div class="d-flex flex-row comment-row p-3 mt-0">
+                <div class="p-2"><img src="/img/profiles/<?php echo empty($msg['perfil']) ? 'noUser.png':$msg['perfil'] ?>" width="50" class="rounded-circle"></div>
+                <div class="comment-text ps-2 ps-md-3 w-100">
+                    <h5 class="font-medium"><?php echo $msg['username']?> - <?php echo $msg['emailSend'] ?></h5>
+                    <span class="mb-3 d-block"><?php echo $msg['message'] ?></span>
+                    <div class="comment-footer d-md-flex align-items-center">
+                        <?php if($msg['seen'] == 0){ ?>
+                            <span class="badge bg-primary rounded textshadow1">Pendente</span>
+                        <?php }else if($msg['seen'] == 1 && $msg['answered'] == 0){?>
+                            <span class="badge bg-warning rounded textshadow1">Visualizada</span>
+                        <?php }else{?>
+                            <span class="badge bg-success rounded textshadow1">Respondida</span>
+                        <?php }?>
+                        <div class="text-muted fs-2 ms-auto mt-2 mt-md-0"><?php echo inverteData($msg['sendDate']) ?></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    <?php } ?>
+
+
+    <!--     
+    <div class="d-flex flex-row comment-row p-3">
+        <div class="p-2"><img src="/plugins/images/users/genu.jpg" alt="user" width="50" class="rounded-circle"></div>
+        <div class="comment-text ps-2 ps-md-3 active w-100">
+            <h5 class="font-medium">Michael Jorden</h5>
+            <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
+            <div class="comment-footer d-md-flex align-items-center">
+
+                <span class="badge bg-success rounded">Approved</span>
+
+                <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row comment-row p-3">
+        <div class="p-2"><img src="/plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div>
+        <div class="comment-text ps-2 ps-md-3 w-100">
+            <h5 class="font-medium">Johnathan Doeting</h5>
+            <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
+            <div class="comment-footer d-md-flex align-items-center">
+
+                <span class="badge rounded bg-danger">Rejected</span>
+
+                <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+            </div>
+        </div>
+    </div> -->
+</div>
