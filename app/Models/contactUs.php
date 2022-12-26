@@ -5,6 +5,7 @@
 
     class ContactUs extends Model {
         protected $id;
+        protected $idUser;
         protected $username;
         protected $emailSend;
         protected $numberContact;
@@ -65,6 +66,13 @@
             $stmt->bindValue(1, $this->__get('id'));
             $stmt->execute();
             return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+
+        public function getMessagesByUser(){
+            $stmt = $this->db->prepare('SELECT * FROM `message` WHERE id_user = ? ORDER BY COALESCE(responseDate, sendDate) DESC');
+            $stmt->bindValue(1, $this->__get('idUser'));
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
         public function seeMessage(){

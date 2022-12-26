@@ -43,7 +43,12 @@ use MF\Init\Bootstrap;
                 'controller' => 'IndexController',
                 'action' => 'contactUs'
             );          
-                  
+            $routes['myMessages'] = array(
+                'route' => '/messages',
+                'controller' => 'IndexController',
+                'action' => 'messages'
+            );          
+            
             
             // AUTH (Autentication)
 

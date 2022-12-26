@@ -158,7 +158,7 @@ class AdminController extends Action
         
             //Recipients
             $mail->setFrom($_POST['email'], 'Resposta da mensagem do protocolo : '. $message->__get('protocol'));
-            // $mail->addReplyTo($_POST['txtEmail']);
+            $mail->addReplyTo($_POST['emailSend']);
             $mail->addAddress($this->view->phpMailer['emailSiteAdmin'],"Resposta: ");
         
             $mail->isHTML(true);

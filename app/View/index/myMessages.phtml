@@ -1,0 +1,132 @@
+<?php
+
+use MF\Model\Container;
+
+
+
+function inverteData($data)
+{
+
+    $data_hora = explode(' ', $data);
+    $data = $data_hora[0];
+    $hora = $data_hora[1];
+
+    $data_separada = explode('-', $data);
+    $hora_separada = explode(':', $hora);
+
+    $dataConvertida = $data_separada[2] . "-" . $data_separada[1] . "-" . $data_separada[0] . " " . $hora_separada[0] . ":" . $hora_separada[1] . ":" . $hora_separada[2];
+
+    return $dataConvertida;
+}
+
+function dataConvertida($data)
+{
+    $data_hora = explode(' ', $data);
+    $data = $data_hora[0];
+
+    $data_separada = explode('-', $data);
+
+    $dataConvertida = $data_separada[2] . "-" . $data_separada[1] . "-" . $data_separada[0];
+
+    return $dataConvertida;
+}
+
+function horaConvertida($hora)
+{
+    $data_hora = explode(' ', $hora);
+    $hora = $data_hora[1];
+
+    $hora_separada = explode(':', $hora);
+
+    $horaConvertida = $hora_separada[0] . ":" . $hora_separada[1];
+
+    return $horaConvertida;;
+}
+
+
+$message = Container::getModel('contactUs');
+$message->__set('idUser', $_SESSION['id']);
+$messages = $message->getMessagesByUser();
+
+
+
+?>
+
+
+<section>
+    <div class="container" style="margin-top: 8rem;">
+        <?php foreach ($messages as $key => $msg) { ?>
+
+            
+
+            <div class="msg-group" style="margin-bottom: 5rem; border: 2px solid gray; padding: 2.6rem;">
+                <?php if ($msg['seen'] == 0) { ?>
+                    <div class="row border-1 border-bottom border-3 border-danger">
+
+                <?php } else if ($msg['seen'] == 1 && $msg['answered'] == 0) { ?>
+                    <div class="row border-1 border-bottom border-3 border-warning">
+
+                <?php } else { ?>
+                    <div class="row border-1 border-bottom border-3 border-success">
+
+                <?php } ?>
+                    <div class="col-sm-9">
+                    <?php if ($msg['seen'] == 0) { ?>
+                        <span class="badge bg-primary rounded textshadow1">Pendente</span>
+                    <?php } else if ($msg['seen'] == 1 && $msg['answered'] == 0) { ?>
+                        <span class="badge bg-warning rounded textshadow1">Visualizada</span>
+                    <?php } else { ?>
+                        <span class="badge bg-success rounded textshadow1">Respondida</span>
+                    <?php } ?>
+                        <div class="blog-post-area">
+                            <div class="single-blog-post">
+                                <div class="p-2 d-flex" style="align-items: center;justify-content: flex-start;">
+                                    <img src="/img/profiles/<?php echo empty($msg['perfil']) ? 'noUser.png' : $msg['perfil'] ?>" width="50" class="rounded-circle m-3">
+                                    <h3><?php echo $msg['username'] ?></h3>
+                                </div>
+                                <div class="post-meta">
+                                    <ul>
+                                        <li><a href="mailto:<?php echo $msg['emailSend'] ?>"><i class="fa fa-user"></i> <?php echo $msg['emailSend'] ?></a></li>
+                                        <li><i class="fa fa-clock-o"></i> <?php echo horaConvertida($msg['sendDate']) ?></li>
+                                        <li><i class="fa fa-calendar"></i> <?php echo dataConvertida($msg['sendDate']) ?></li>
+                                    </ul>
+                                </div>
+                                <p><?php echo $msg['message'] ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php if($msg['answered'] == 1){?>
+                    <?php 
+                    
+                        $user = Container::getModel('user');
+                        $user->__set('email', $msg['replyEmail']);
+                        $response = $user->findByEmail();
+                    ?>
+                    <div class="row border-1 border-bottom border-3 border-dark" style="margin-top: 1rem; margin-left: 6rem; padding-top: 1rem;">
+                        <div class="col-sm-9">
+                            <span class="badge bg-dark rounded textshadow1">Resposta</span>
+                            <div class="blog-post-area">
+                                <div class="single-blog-post">
+                                    <div class="p-2 d-flex" style="align-items: center;justify-content: flex-start;">
+                                        <img src="/img/profiles/<?php echo empty($response['perfil']) ? 'noUser.png' : $response['perfil'] ?>" width="50" class="rounded-circle m-3">
+                                        <h3><?php echo $response['username'] ?></h3>
+                                    </div>
+                                    <div class="post-meta">
+                                        <ul>
+                                            <li><a href="mailto:<?php echo $response['email'] ?>"><i class="fa fa-user"></i> <?php echo $response['email'] ?></a></li>
+                                            <li><i class="fa fa-clock-o"></i> <?php echo horaConvertida($msg['responseDate']) ?></li>
+                                            <li><i class="fa fa-calendar"></i> <?php echo dataConvertida($msg['responseDate']) ?></li>
+                                        </ul>
+                                    </div>
+                                    <p><?php echo $msg['answer'] ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               <?php } ?>
+            </div>
+
+        <?php } ?>
+    </div>
+</section>

@@ -61,6 +61,13 @@ use MF\Model\Container;
             $this->render('contato', 'contato');
         }
 
+        public function messages(){
+            $msg = Container::getModel('message');
+            if(!$this->autentication()){
+                $msg->setMessage('Você precisa estar logado para acessar essa página', 'error','/');
+            }
+            $this->render('myMessages');
+        }
         
     }
 

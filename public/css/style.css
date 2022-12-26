@@ -348,6 +348,17 @@ body#default .msg{
     cursor: pointer;
 }
 
+.textshadow1{
+    text-shadow: 0.1rem 0.2rem 0.5rem rgb(0 0 0 / 70%);
+    font-weight: bolder!important;
+}
+#messages a{
+    background-color: rgba(255, 0, 0, 0.6);
+}
+#messages:hover a{
+    background-color: red;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
