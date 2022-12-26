@@ -5,6 +5,7 @@
     use MF\Model\Container;
 
     class User extends Model {
+        protected $id;
         protected $username;
         protected $email;
         protected $emailConfirm;
@@ -47,6 +48,14 @@
                 return true;
 
             }
+        }
+
+        public function getImage(){
+            $stmt = $this->db->prepare('SELECT perfil FROM users WHERE id = ?');
+            $stmt->bindValue(1,$this->__get('id'));
+
+            $stmt->execute();
+            return $stmt->fetch(\PDO::FETCH_ASSOC)['perfil'];
         }
 
         public function edit(){

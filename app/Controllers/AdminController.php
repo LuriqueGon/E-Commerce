@@ -59,4 +59,19 @@ class AdminController extends Action
         }
         
     }
+    
+    public function adminConfig(){
+        $msg = Container::getModel('message');
+        if(!$this->autentication()){
+            $msg->setMessage('Você precisa estar logado para acessar essa página', 'error','/');
+            exit;
+        }
+        if($_SESSION['perm'] < 3){
+            $msg->setMessage('Você precisa ter nivel de acesso 3 ou superior', 'error','/');
+            exit;
+
+        }
+
+        $this->render('admin', 'admin');
+    }
 }

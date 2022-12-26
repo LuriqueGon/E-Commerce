@@ -6,6 +6,8 @@ use MF\Init\Bootstrap;
     class Route extends Bootstrap{
 
         protected function initRoutes(){
+
+            // INDEX (PAGES)
             $routes['home'] = array(
                 'route' => '/',
                 'controller' => 'IndexController',
@@ -41,7 +43,9 @@ use MF\Init\Bootstrap;
                 'controller' => 'IndexController',
                 'action' => 'contactUs'
             );          
+                  
             
+            // AUTH (Autentication)
 
             $routes['cadastrar'] = array(
                 'route' => '/auth/register',
@@ -60,6 +64,8 @@ use MF\Init\Bootstrap;
             );            
             
 
+            // USER (Profiles)
+
             $routes['setImage'] = array(
                 'route' => '/profile/setImage',
                 'controller' => 'UserController',
@@ -74,13 +80,20 @@ use MF\Init\Bootstrap;
                 'route' => '/profile/setLocale',
                 'controller' => 'UserController',
                 'action' => 'setLocale'
-            );            
+            );    
             
+            
+            // ADMIN (Configers)
             $routes['sendMessage'] = array(
                 'route' => '/contactUs/sendMessage',
                 'controller' => 'AdminController',
                 'action' => 'sendMessage'
-            );            
+            );   
+            $routes['adminConfig'] = array(
+                'route' => '/adminConfig',
+                'controller' => 'AdminController',
+                'action' => 'adminConfig'
+            );    
             
             
                     

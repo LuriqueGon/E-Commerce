@@ -1,43 +1,59 @@
-    <div class="container" id="menuContainer">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="shop-menu pull-left">
-                    <ul class="nav navbar-nav d-flex flex-row">
-                        <li><a href="mailto:info@domain.com"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-                        <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
-                    </ul>
-                </div>
+<?php
+
+    use MF\Model\Container;
+
+    $user = Container::getModel('user');
+    $user->__set('id', $_SESSION['id']);
+    $user->__set('perfil', $user->getImage());
+
+?>
+<div class="container" id="menuContainer">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="shop-menu pull-left">
+                <ul class="nav navbar-nav d-flex flex-row">
+                    <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+                </ul>
             </div>
-            <div class="col-sm-4">
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 position-relative mt-2">
-                    <input type="search" class="form-control form-control-dark" name="query" placeholder="Search..." aria-label="Search" style="padding: 1rem;text-indent: 1rem;border-bottom: 3px solid;">
-                    <button type="submit" class="btn btn-primary position-absolute bg-transparent text-dark" style="top: -17px;right: 0;"> <i class="fas fa-search"></i> </button>
-                </form>
-            </div>
-            <div class="col-sm-5">
-                <div class="shop-menu pull-right">
-                    <ul class="nav navbar-nav d-flex flex-row">
-                        <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] >= 0) { ?>
-                            <li><a href="/profile"><i class="fa fa-user"></i> <?php echo $_SESSION['username'] ?></a></li>
+        </div>
+        <div class="col-sm-4">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 position-relative mt-2">
+                <input type="search" class="form-control form-control-dark" name="query" placeholder="Search..." aria-label="Search" style="padding: 1rem;text-indent: 1rem;border-bottom: 3px solid;">
+                <button type="submit" class="btn btn-primary position-absolute bg-transparent text-dark" style="top: -17px;right: 0;"> <i class="fas fa-search"></i> </button>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <div class="shop-menu pull-right">
+                <ul class="nav navbar-nav d-flex flex-row">
+                    <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] >= 0) { ?>
+                        <li><a href="/profile"><img src="/img/profiles/<?php echo empty($user->__get('perfil')) ? 'noUser.png' : $user->__get('perfil') ?>" class="img-circle"> <?php echo $_SESSION['username'] ?></a></li>
+                        <!-- <li><a href="/profile"><i class="fa fa-user"></i> <?php echo $_SESSION['username'] ?></a></li> -->
+
+                        <?php if ($_SESSION['perm'] >= 3) { ?>
+                            <li><a href="/adminConfig"><i class="fa-solid fa-gear"></i> Admin</a></li>
+                        <?php } else { ?>
                             <li><a href="/favorite"><i class="fa fa-star"></i> Lista de Desejos</a></li>
                             <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
-                            <li><a href="/logout"><i class="fa fa-times"></i> Sair</a></li>
-                        <?php } else { ?>
-                            <li><a href="/auth"><i class="fa fa-lock"></i> Login</a></li>
                         <?php } ?>
-                        <li></li>
-                    </ul>
-                </div>
+
+                        <li><a href="#notify"><i class="fa-solid fa-comment"></i> Notificações</a></li>
+                        <li><a href="/logout"><i class="fa fa-times"></i> Sair</a></li>
+                    <?php } else { ?>
+                        <li><a href="/auth"><i class="fa fa-lock"></i> Login</a></li>
+                    <?php } ?>
+                    <li></li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        const mudarMenu = () => {
-            if (scrollY > 0) {
-                $('#menuContainer').addClass('mudarMenu')
-            } else {
-                $('#menuContainer').removeClass('mudarMenu')
-            }
+<script>
+    const mudarMenu = () => {
+        if (scrollY > 0) {
+            $('#menuContainer').addClass('mudarMenu')
+        } else {
+            $('#menuContainer').removeClass('mudarMenu')
         }
-    </script>
+    }
+</script>

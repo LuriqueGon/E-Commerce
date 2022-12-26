@@ -11,6 +11,7 @@
 
         public function __construct(){
             $this->view = new \stdClass();
+            $this->view->class = strtolower(str_replace('Controller', '',str_replace('App\\Controllers\\', '', get_class($this))));;
             $this->constructSmarty();
             $this->constructConsts();
             session_start();
@@ -36,11 +37,8 @@
         }
 
         protected function content(){
-            $atualClass =  strtolower(str_replace('Controller', '',str_replace('App\\Controllers\\', '', get_class($this)))); 
-            $this->view->class = $atualClass;
-
-            if(file_exists("../app/View/$atualClass/".$this->view->page.".phtml")){
-                require "../app/view/$atualClass/".$this->view->page.".phtml";
+            if(file_exists("../app/View/".$this->view->class."/".$this->view->page.".phtml")){
+                require "../app/view/".$this->view->class."/".$this->view->page.".phtml";
             }else{
                 require "../app/view/error404.phtml";
                 exit;
@@ -48,6 +46,7 @@
         }
 
         protected function loadComponents($component){
+
             if($component == 'header'){
                 require "../app/View/components/header.phtml";
             }else if($component == 'footer'){
@@ -57,8 +56,8 @@
             }else if($component == 'category'){
                 require "../app/View/components/category.phtml";
             }else{
-                if(file_exists("../app/view/components/$atualClass/$component.phtml")){
-                    require "../app/view/components/$atualClass/$component.phtml";
+                if(file_exists("../app/view/components/".$this->view->class."/$component.phtml")){
+                    require "../app/view/components/".$this->view->class."/$component.phtml";
                 }else{
                     require "../app/view/components/$component.phtml";
                 }

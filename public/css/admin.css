@@ -1,0 +1,23 @@
+/* HEADER */
+.adminItem{
+    margin: 0 .5rem;
+    cursor: pointer;
+}
+.adminItem a{
+    color: white;
+    transition: all .8s;
+}
+.adminItem:hover a{
+    color: #aaa;
+}
+.adminItem.logout:hover a{
+    color: red;
+}
+.adminItem i{
+    padding: 0 .5rem; font-size: 1.2rem;
+}
+
+/* SIDEBAR */
+
+
+/* MAIN CONTENT */

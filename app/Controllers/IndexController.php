@@ -60,6 +60,8 @@ use MF\Model\Container;
             }
             $this->render('contato', 'contato');
         }
+
+        
     }
 
 ?>

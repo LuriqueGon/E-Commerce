@@ -318,6 +318,36 @@ body#default .msg{
     border-color: gray!important;
 }
 
+.img-circle{
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    width: 23px;
+    line-height: 60px;
+}
+.alterImage{
+    width: 15rem;
+    height: 15rem;
+    border-radius: 100%;
+    background: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    position: absolute;
+    top: 11px;
+    left: 31%;
+    opacity: 0;
+    transition: all 1s;
+}
+
+#imgPerfil:hover .alterImage{
+    opacity: .8;
+    cursor: pointer;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

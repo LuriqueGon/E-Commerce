@@ -31,10 +31,11 @@ $endereco = $locale->findById();
         <div class="row m-0">
             <div class="col-sm-4">
                 <div class="card card-primary card-outline border-1 border-dark" style="border-radius: 12px;">
-                    <div class="card-body box-profile">
+                    <div class="card-body box-profile position-relative">
                         <?php if (isset($informacoes['perfil']) && !empty($informacoes['perfil'])) { ?>
-                            <div class="text-center">
+                            <div class="text-center" id="imgPerfil">
                                 <img class="profile-user-img img-fluid img-circle" src="/img/profiles/<?php echo $informacoes['perfil'] ?>" style="width: 15rem;height: 15rem; border-radius: 100%;box-shadow: 0.2rem 0.1rem 0.5rem black;">
+                                <div class="alterImage" data-toggle="modal" data-target="#imagePerfilChange">Alterar Imagem</div>
                             </div>
                         <?php } else { ?>
                             <div class="text-center d-flex text-center justify-content-center">
@@ -42,10 +43,10 @@ $endereco = $locale->findById();
                             </div>
                         <?php } ?>
                         <h3 class="profile-username text-center"><?php echo $_SESSION['username'] ?> </h3>
-                        
-                        <?php if($_SESSION['perm'] >= 1){ ?>
+
+                        <?php if ($_SESSION['perm'] >= 1) { ?>
                             <p class="text-muted text-center">Permissão Nivel <?php echo $_SESSION['perm'] ?></p>
-                        <?php }?>
+                        <?php } ?>
                         <p class="display-6 text-dark text-center"> R$ <?php echo empty($informacoes['credit']) ?  '00,00' : $informacoes['credit'] ?></p>
 
                         <ul class="list-group list-group-unbordered mb-3">
@@ -59,21 +60,21 @@ $endereco = $locale->findById();
                                 <b>Email: </b> <a href="mailto:<?php echo $informacoes['email'] ?>" class="float-right"><?php echo $informacoes['email'] ?></a>
                             </li>
                             <li class="list-group-item">
-                                <b>Endereço Padrão: </b><?php echo !empty($informacoes['localeMainId']) ? 
+                                <b>Endereço Padrão: </b><?php echo !empty($informacoes['localeMainId']) ?
 
-                                '<p class="text-dark" style="letter-spacing:.2rem ; border: 2px solid black; padding: .5rem; margin: .5rem 0; background-color: #bbb;">'. $endereco['rua'] . ', ' . $endereco['logadouro'] . ' ( '. $endereco['complemento'] . ' ). ' . $endereco['bairro'] .' - '.$endereco['cidade'] . ' ' . $endereco['estado'] . ' / ' . $endereco['cep'] . '</p>':
+                                '<p class="text-dark" style="letter-spacing:.2rem ; border: 2px solid black; padding: .5rem; margin: .5rem 0; background-color: #bbb;">' . $endereco['rua'] . ', ' . $endereco['logadouro'] . ' ( ' . $endereco['complemento'] . ' ). ' . $endereco['bairro'] . ' - ' . $endereco['cidade'] . ' ' . $endereco['estado'] . ' / ' . $endereco['cep'] . '</p>' :
 
                                 '<a href="/profile/addLocalite" class="float-right" data-toggle="modal" data-target="#LocaliteChange">Adicionar Endereço Padrão</a>' ?>
                             </li>
                             <li class="list-group-item">
-                                <b>Cartão de credito: </b> 
+                                <b>Cartão de credito: </b>
                                 <?php echo !empty($informacoes['cart']) ? '<p></p>' : '<a href="/profile/addPayment" class="float-right" data-toggle="modal" data-target="#LocaliteChange">Adicionar Cartão de credito</a>' ?>
                             </li>
                             <li class="list-group-item">
                                 <b>Cartão de debito: </b>
                                 <?php echo !empty($informacoes['cart']) ? '<p></p>' : '<a href="/profile/addPayment" class="float-right" data-toggle="modal" data-target="#LocaliteChange">Adicionar Cartão de debito</a>' ?>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -113,7 +114,7 @@ $endereco = $locale->findById();
                                             <input type="passwordConfirm" name="passwordConfirm" value="" class="form-control border-0 border-bottom border-2 border-secondary" id="passwordConfirm" placeholder="Confirmação de Senha">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
                                             <button type="submit" class="btn btn-danger">Editar </button>
