@@ -6,21 +6,26 @@ $message = Container::getModel('contactUs');
 $message->__set('id', $_GET['id']);
 $msg = $message->getMessage();
 
-if($msg['seen'] == 0){
+$user = Container::getModel('user');
+$user->__set('email', $msg['replyEmail']);
+$response = $user->findByEmail();
+
+if ($msg['seen'] == 0) {
     $message->seeMessage();
     $msg = $message->getMessage();
 }
 
-function inverteData($data){
+function inverteData($data)
+{
 
-    $data_hora =explode(' ',$data);
+    $data_hora = explode(' ', $data);
     $data = $data_hora[0];
     $hora = $data_hora[1];
 
     $data_separada = explode('-', $data);
     $hora_separada = explode(':', $hora);
 
-    $dataConvertida = $data_separada[2]. "-" . $data_separada[1]. "-" .$data_separada[0]. " ".$hora_separada[1]. ":".$hora_separada[0];
+    $dataConvertida = $data_separada[2] . "-" . $data_separada[1] . "-" . $data_separada[0] . " " . $hora_separada[0] . ":" . $hora_separada[1].":" . $hora_separada[2];
 
     return $dataConvertida;
 }
@@ -29,24 +34,87 @@ function inverteData($data){
 
 
 <div class="comment-widgets">
+    <div class="d-flex flex-row comment-row p-3 mt-0">
 
-    <a class="text-dark" href="/adminConfig/messages/message?id=<?php echo $msg['id']?>">
-        <div class="d-flex flex-row comment-row p-3 mt-0">
-            <div class="p-2"><img src="/img/profiles/<?php echo empty($msg['perfil']) ? 'noUser.png':$msg['perfil'] ?>" width="50" class="rounded-circle"></div>
+        <div class="p-2">
+            <img src="/img/profiles/<?php echo empty($msg['perfil']) ? 'noUser.png' : $msg['perfil'] ?>" width="50" class="rounded-circle">
+        </div>
+
+        <div class="comment-text ps-2 ps-md-3 w-100">
+            <h5 class="font-medium"><?php echo $msg['username'] ?> - <?php echo $msg['emailSend'] ?> - [ <?php echo $msg['numberContact'] ?> ]</h5>
+            <span class="mb-3 d-block"><?php echo $msg['message'] ?></span>
+
+            <div class="comment-footer d-md-flex align-items-center">
+                <?php if ($msg['seen'] == 0) { ?>
+                    <span class="badge bg-primary rounded textshadow1">Pendente</span>
+                <?php } else if ($msg['seen'] == 1 && $msg['answered'] == 0) { ?>
+                    <span class="badge bg-warning rounded textshadow1">Visualizada</span>
+                <?php } else { ?>
+                    <span class="badge bg-success rounded textshadow1">Respondida</span>
+                <?php } ?>
+                <?php if ($msg['answered'] == 0) { ?>
+                    <a data-toggle="modal" data-target="#answerModal" style="cursor: pointer; font-size: 2rem;"><i class="fa-solid fa-reply-all"></i> Responder</a>
+                <?php } ?>
+                <div class="text-muted fs-2 ms-auto mt-2 mt-md-0"><?php echo inverteData($msg['sendDate']) ?></div>
+            </div>
+
+        </div>
+    </div>
+    <?php if ($msg['answered'] == 1) { ?>
+        <div class="d-flex flex-row comment-row p-3 mt-0 spaceResponse">
+
+            <div class="p-2">
+                <img src="/img/profiles/<?php echo empty($response['perfil']) ? 'noUser.png' : $response['perfil'] ?>" width="50" class="rounded-circle">
+            </div>
+
             <div class="comment-text ps-2 ps-md-3 w-100">
-                <h5 class="font-medium"><?php echo $msg['username']?> - <?php echo $msg['emailSend'] ?></h5>
-                <span class="mb-3 d-block"><?php echo $msg['message'] ?></span>
+                <h5 class="font-medium"><?php echo $response['username'] ?> - <?php echo $msg['replyEmail'] ?></h5>
+                <span class="mb-3 d-block"><?php echo $msg['answer'] ?></span>
+
                 <div class="comment-footer d-md-flex align-items-center">
-                    <?php if($msg['seen'] == 0){ ?>
-                        <span class="badge bg-primary rounded textshadow1">Pendente</span>
-                    <?php }else if($msg['seen'] == 1 && $msg['answered'] == 0){?>
-                        <span class="badge bg-warning rounded textshadow1">Visualizada</span>
-                    <?php }else{?>
-                        <span class="badge bg-success rounded textshadow1">Respondida</span>
-                    <?php }?>
-                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0"><?php echo inverteData($msg['sendDate']) ?></div>
+                    <span class="badge bg-danger rounded textshadow1">Resposta</span>
+                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0"><?php echo inverteData($msg['responseDate']) ?></div>
                 </div>
+
             </div>
         </div>
-    </a>
+
+    <?php } ?>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="answerModal" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex flex-row comment-row p-3 mt-0">
+
+                    <div class="p-2">
+                        <img src="/img/profiles/<?php echo empty($msg['perfil']) ? 'noUser.png' : $msg['perfil'] ?>" width="50" class="rounded-circle">
+                    </div>
+
+                    <div class="comment-text ps-2 ps-md-3 w-100">
+                        <h5 class="font-medium"><?php echo $msg['username'] ?> - <?php echo $msg['emailSend'] ?></h5>
+                        <span class="mb-3 d-block"><?php echo $msg['message'] ?></span>
+                    </div>
+                </div>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Fechar">
+                    <i class="fa fa-times close-ico"></i>
+                </button>
+            </div>
+            <form class="modal-body" method="POST" action="/adminConfig/messages/answerMessage">
+                <input type="hidden" name="id" value="<?php echo $msg['id'] ?>">
+                <input type="hidden" name="protocol" value="<?php echo $msg['protocol'] ?>">
+                <input type="hidden" name="email" value="<?php echo $msg['emailSend'] ?>">
+                <div class="form-group">
+                    <label for="messageResponse">Resposta</label>
+                    <textarea class="form-control border-0 border-bottom border-dark border-3" id="messageResponse" rows="3" style="resize: none;" name="msg" required></textarea>
+                </div>
+                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Enviar Resposta</button>
+            </form>
+            <div class="modal-footer">
+                <b>Protocolo: </b><?php echo $msg['protocol'] ?>
+            </div>
+        </div>
+    </div>
 </div>

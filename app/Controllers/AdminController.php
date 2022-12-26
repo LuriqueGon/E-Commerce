@@ -90,7 +90,7 @@ class AdminController extends Action
         $this->render('messages', 'admin');
     }
 
-    public function answerMessage(){
+    public function message(){
         $msg = Container::getModel('message');
         if(!$this->autentication()){
             $msg->setMessage('Você precisa estar logado para acessar essa página', 'error','/');
@@ -109,6 +109,76 @@ class AdminController extends Action
         $this->render('message', 'admin');
 
     }
+
+    public function answerMessage(){
+        $msg = Container::getModel('message');
+        if(!$this->autentication()){
+            $msg->setMessage('Você precisa estar logado para acessar essa página', 'error','/');
+            exit;
+        }
+        if($_SESSION['perm'] < 3){
+            $msg->setMessage('Você precisa ter nivel de acesso 3 ou superior', 'error','/');
+            exit;
+
+        }
+        if(!isset($_POST['msg']) || empty($_POST['msg'])){
+            $msg->setMessage('Você precisa informar a mensagem', 'error','/');
+            exit;
+
+        }
+
+        echo '<pre>';
+        var_dump($_POST);
+        echo '</pre>';
+
+        $message = Container::getModel('contactUs');
+        $message->__set('answer',$_POST['msg']);
+        $message->__set('protocol',$_POST['protocol']);
+        $message->__set('id',$_POST['id']);
+        $message->__set('emailResponse',$_SESSION['email']);
+        $message->__set('responseDate', date('y/m/d H:i:s'));
+
+        $message->answerMessage();
+
+        echo '<pre>';
+        var_dump($message);
+        echo '</pre>';
+
+
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = $this->view->phpMailer['emailHost'];//Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = $this->view->phpMailer['emailSiteAdmin'];                     //SMTP username
+            $mail->Password   = $this->view->phpMailer['password'];                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                    
+        
+            //Recipients
+            $mail->setFrom($_POST['email'], 'Resposta da mensagem do protocolo : '. $message->__get('protocol'));
+            // $mail->addReplyTo($_POST['txtEmail']);
+            $mail->addAddress($this->view->phpMailer['emailSiteAdmin'],"Resposta: ");
+        
+            $mail->isHTML(true);
+            $mail->Subject = "Resposta enviada por ". $_SESSION['username']. " - ".$_SESSION['email'].  " - Data de resposta: ". $message->__get('responseDate');
+            $mail->Body    = $message->__get('answer');
+        
+            $mail->send();
+
+            $msg = Container::getModel('message');
+            $msg->setMessage('Resposta enviada com sucesso', 'success','/adminConfig/messages');
+
+            
+        } catch (Exception $e) {
+            $msg = Container::getModel('message');
+            $msg->setMessage('Não foi possível enviar a mensagem por e-mail, mas ela foi salva no nosso sistema, e logo será enviada', 'success','/');
+        }
+
+    }
+
+    
 
     
     

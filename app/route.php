@@ -99,12 +99,16 @@ use MF\Init\Bootstrap;
                 'controller' => 'AdminController',
                 'action' => 'messages'
             );    
-            $routes['answerMessage'] = array(
+            $routes['message'] = array(
                 'route' => '/adminConfig/messages/message',
                 'controller' => 'AdminController',
-                'action' => 'answerMessage'
+                'action' => 'message'
             );    
-            
+            $routes['answerMessage'] = array(
+                'route' => '/adminConfig/messages/answerMessage',
+                'controller' => 'AdminController',
+                'action' => 'answerMessage'
+            );
             
                     
             

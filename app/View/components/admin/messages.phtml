@@ -5,19 +5,21 @@ use MF\Model\Container;
 $message = Container::getModel('contactUs');
 $messages = $message->getMessages();
 
-function inverteData($data){
+function inverteData($data)
+{
 
-    $data_hora =explode(' ',$data);
+    $data_hora = explode(' ', $data);
     $data = $data_hora[0];
     $hora = $data_hora[1];
 
     $data_separada = explode('-', $data);
     $hora_separada = explode(':', $hora);
 
-    $dataConvertida = $data_separada[2]. "-" . $data_separada[1]. "-" .$data_separada[0]. " ".$hora_separada[1]. ":".$hora_separada[0];
+    $dataConvertida = $data_separada[2] . "-" . $data_separada[1] . "-" . $data_separada[0] . " " . $hora_separada[0] . ":" . $hora_separada[1].":" . $hora_separada[2];
 
     return $dataConvertida;
 }
+
 
 ?>
 

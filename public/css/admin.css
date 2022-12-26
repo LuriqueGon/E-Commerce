@@ -27,3 +27,20 @@
     text-shadow: 0.1rem 0.2rem 0.5rem rgb(0 0 0 / 70%);
     font-weight: bolder!important;
 }
+
+/* MESSAGE */
+
+.spaceResponse{
+    margin-left: 7rem!important;
+    border-top: 3px solid!important;
+    border-bottom: 3px solid green!important;
+}
+
+/* MODAL */
+.close-ico{
+    font-size: 1.2rem;
+    transition: .8s;
+}
+.close-ico:hover{
+    color: red;
+}

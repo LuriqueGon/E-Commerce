@@ -13,7 +13,9 @@
         protected $sendDate;
         protected $responseDate;
         protected $seen;
-        protected $answered	;
+        protected $answered;
+        protected $answer;
+        protected $emailResponse;
         protected $replyEmail;
 
         private function protocolsDontExists(){
@@ -59,7 +61,7 @@
         }
 
         public function getMessage(){
-            $stmt = $this->db->prepare('SELECT m.id, m.username, m.emailSend, m.numberContact, m.message, m.protocol, m.sendDate, m.id_user, m.seen, m.answered, u.ativo, u.perfil FROM `message` as m LEFT JOIN users as u ON m.id_user = u.id WHERE u.ativo = 1 AND m.id = ? ORDER BY seen ASC, answered ASC');
+            $stmt = $this->db->prepare('SELECT m.id, m.username, m.emailSend, m.numberContact, m.message, m.protocol, m.sendDate, m.id_user, m.seen, m.answered, m.replyEmail, m.answer, m.responseDate, u.ativo, u.perfil FROM `message` as m LEFT JOIN users as u ON m.id_user = u.id WHERE u.ativo = 1 AND m.id = ? ORDER BY seen ASC, answered ASC');
             $stmt->bindValue(1, $this->__get('id'));
             $stmt->execute();
             return $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -71,6 +73,14 @@
             $stmt->execute();
         }
 
+        public function answerMessage(){
+            $stmt = $this->db->prepare('UPDATE `message` SET responseDate = ?, answered = 1, answer = ?, replyEmail = ? WHERE id = ?');
+            $stmt->bindValue(1, $this->__get('responseDate'));
+            $stmt->bindValue(2, $this->__get('answer'));
+            $stmt->bindValue(3, $this->__get('emailResponse'));
+            $stmt->bindValue(4, $this->__get('id'));
+            $stmt->execute();
+        }
         
         
     }

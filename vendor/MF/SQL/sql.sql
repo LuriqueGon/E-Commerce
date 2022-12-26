@@ -69,6 +69,7 @@ CREATE TABLE message (
     responseDate TIMESTAMP,
     seen BOOLEAN DEFAULT 0,
     answered BOOLEAN DEFAULT 0,
+    answer TEXT,
     replyEmail VARCHAR(200),
     id_user INT NOT NULL
 );
